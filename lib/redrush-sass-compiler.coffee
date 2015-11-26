@@ -4,17 +4,39 @@ Sass = require './vendor/sassjs/sass.js'
 
 module.exports = RedrushSassCompiler =
   redrushSassCompilerView: null
-  modalPanel: null
   subscriptions: null
+
+  # Config settings
+  config:
+    outputPath:
+      description: 'The absolute path to the compiled files should be placed. If multiple files are processed then it takes the path to the first file by default'
+      type: 'string'
+      default: 'path/to/file/being/processed'
+    scanCurrentFolder:
+      description: 'Scans the folder containing the current scss file and processes all the valid scss files that it finds'
+      type: 'boolean'
+      default: false
+    scanSubfolders:
+      description: 'Scans the sub-folders below the location of the current scss file and processes all the valid scss files that it finds'
+      type: 'boolean'
+      default: false
+    combineOutputIntoOneFile:
+      description: 'Compile all scss files and combine output into one large compiled css file'
+      type: 'boolean'
+      default: false
+    combinedOutputFilename:
+      description: 'The filename for the combined output file. If multiple files are processed then it takes the name of the first file by default'
+      type: 'string'
+      default: 'name-of-scss-file-being-processed.css'
+
 
   activate: (state) ->
     @redrushSassCompilerView = new RedrushSassCompilerView(state.redrushSassCompilerViewState)
-    # @modalPanel = atom.workspace.addModalPanel(item: @redrushSassCompilerView.getElement(), visible: false)
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
-    # Register command that toggles this view
+    # Register command that launches the package and the initial compile
     @subscriptions.add atom.commands.add 'atom-workspace', 'redrush-sass-compiler:compile-project': => @compileProject()
 
   deactivate: ->
@@ -37,6 +59,8 @@ module.exports = RedrushSassCompiler =
       name = @getFilename page
       text = page.getText()
       @compileSass path, name, text
+    else
+
 
   checkFileType: (page) ->
     # Checks that the file is a sass file
@@ -90,3 +114,4 @@ module.exports = RedrushSassCompiler =
           detail: "The file was empty or there were no css commands to parse",
           dismissable: true
         }
+      
