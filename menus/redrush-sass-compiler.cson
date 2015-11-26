@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle redrush-sass-compiler'
+      'command': 'redrush-sass-compiler:compile-project'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'redrush-sass-compiler'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'redrush-sass-compiler:compile-project'
+        }
+      ]
+    ]
+  }
+]

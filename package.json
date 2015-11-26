@@ -1,0 +1,18 @@
+{
+  "name": "redrush-sass-compiler",
+  "main": "./lib/redrush-sass-compiler",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "redrush-sass-compiler:compile-project"
+  },
+  "repository": "https://github.com/atom/redrush-sass-compiler",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
