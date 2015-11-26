@@ -60,7 +60,7 @@ module.exports = RedrushSassCompiler =
       text = page.getText()
       @compileSass path, name, text
     else
-
+      @triggerNotification "NOT_AN_SCSS_FILE", null
 
   checkFileType: (page) ->
     # Checks that the file is a sass file
@@ -114,4 +114,8 @@ module.exports = RedrushSassCompiler =
           detail: "The file was empty or there were no css commands to parse",
           dismissable: true
         }
-      
+      when "NOT_AN_SCSS_FILE"
+        n.addWarning "Save Are [sic] SoulS - No Sass here", {
+          detail: "redrush-sass-compiler can only be launched from within an scss file",
+          dismissable: true
+        }
